@@ -1,4 +1,4 @@
-    plugins {
+plugins {
     alias(libs.plugins.android.application)
 }
 
@@ -31,7 +31,9 @@ android {
 dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.google.code.gson:gson:2.10.1")
-    implementation("androidx.cardview:cardview:1.0.0")
+
+    implementation("org.osmdroid:osmdroid-android:6.1.11")
+    implementation("org.osmdroid:osmdroid-wms:6.1.11")
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -40,4 +42,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+}
+
+allprojects {
+    repositories {
+    }
 }

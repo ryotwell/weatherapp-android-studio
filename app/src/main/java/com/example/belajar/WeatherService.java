@@ -56,6 +56,8 @@ public class WeatherService {
                         String name = weatherResponse.name != null ? weatherResponse.name : "Unknown";
                         float wind = weatherResponse.wind.speed != null ? weatherResponse.wind.speed : Float.NaN;
                         String sys_country = weatherResponse.sys.country != null ? weatherResponse.sys.country : "Unknown";
+                        float lat = weatherResponse.coord.lat != null ? weatherResponse.coord.lat : Float.NaN;
+                        float lon = weatherResponse.coord.lon != null ? weatherResponse.coord.lon : Float.NaN;
 
                         String icon_description = weatherResponse.weather.get(0).icon;
                         String description = weatherResponse.weather.get(0).description;
@@ -64,7 +66,7 @@ public class WeatherService {
                         temperature = (int) temperature;
                         name = name + ", " + sys_country;
 
-                        WeatherData weatherData = new WeatherData(temperature - 273, pressure, humidity, name, wind, icon_description, description);
+                        WeatherData weatherData = new WeatherData(temperature - 273, pressure, humidity, name, wind, icon_description, description, lat, lon);
                         callback.onSuccess(weatherData);
                     } else {
                         callback.onFailure(new NullPointerException("Main data is not available."));

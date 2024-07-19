@@ -11,15 +11,52 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.library.BuildConfig;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+
 public class MainActivity2 extends AppCompatActivity {
 
     Button back_to_homepage;
 
+    private MapView mapView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+
+        float lat = Float.parseFloat(getIntent().getStringExtra("lat"));
+        float lon = Float.parseFloat(getIntent().getStringExtra("lon"));
+
+        // set User-Agent
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+
+        // Openstreetmap
         setContentView(R.layout.activity_main2);
+
+        // Initialize the map view
+        mapView = findViewById(R.id.mapView);
+        mapView.setMultiTouchControls(true);
+
+        // Set the initial zoom level and center point
+        IMapController mapController = mapView.getController();
+        mapController.setZoom(15.0); // Using double for zoom level
+        GeoPoint startPoint = new GeoPoint(lat, lon); // Setting latitude and longitude
+        mapController.setCenter(startPoint);
+
+        // Add a marker at the center point
+        Marker startMarker = new Marker(mapView);
+        startMarker.setPosition(startPoint);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        startMarker.setTitle("Marker in Sydney");
+        mapView.getOverlays().add(startMarker);
+        // End of Openstreetmap
+
+        EdgeToEdge.enable(this);
+//        setContentView(R.layout.activity_main2);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

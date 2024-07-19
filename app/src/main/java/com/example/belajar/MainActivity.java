@@ -17,22 +17,17 @@ public class MainActivity extends AppCompatActivity {
 
     Button buka, submit;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-
-        findViewById(R.id.buka).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity2.class));
-            }
         });
 
         submit = findViewById(R.id.submit);
@@ -59,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
                                 String icon_description = data.icon_description;
                                 String description = data.description;
 
+                                float lat = data.lat;
+                                float lon = data.lon;
+
                                 Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
 
                                 intent.putExtra("icon_description", icon_description);
@@ -68,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("pressure", Float.toString(pressure));
                                 intent.putExtra("temperature", Float.toString(temperature));
                                 intent.putExtra("wind", Float.toString(wind));
+                                intent.putExtra("lat", Float.toString(lat));
+                                intent.putExtra("lon", Float.toString(lon));
 
                                 startActivity(intent);
                             }
@@ -92,9 +92,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        Toast.makeText(getApplicationContext(), "MainActivity Paused.", Toast.LENGTH_SHORT).show();
+    public void onResume() {
+        super.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+//        Toast.makeText(getApplicationContext(), "MainActivity Paused.", Toast.LENGTH_SHORT).show();
         super.onPause();
     }
 }

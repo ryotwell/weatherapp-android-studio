@@ -13,6 +13,14 @@ public class WeatherResponse {
 
     public List<Weather> weather;
 
+    public Coord coord;
+
+    public class Coord {
+        public Float lon;
+
+        public Float lat;
+    }
+
     public class Wind {
         public Float speed;
     }

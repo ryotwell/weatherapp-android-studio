@@ -13,7 +13,11 @@ public class WeatherData {
 
     public String description;
 
-    public WeatherData(float temperature, int pressure, int humidity, String name, float wind, String icon_description, String description) {
+    public float lat;
+
+    public float lon;
+
+    public WeatherData(float temperature, int pressure, int humidity, String name, float wind, String icon_description, String description, float lat, float lon) {
         this.temperature = (int) temperature;
         this.pressure = pressure;
         this.humidity = humidity;
@@ -21,6 +25,8 @@ public class WeatherData {
         this.wind = wind;
         this.icon_description = icon_description;
         this.description = description;
+        this.lat = lat;
+        this.lon = lon;
     }
 }
 
